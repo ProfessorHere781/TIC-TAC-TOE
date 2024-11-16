@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #f39c12;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px; /* Larger font size */
+    font-weight: bold; /* Bold font */
+    background-color: #333;
+    border: 2px solid #444;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.lightning {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7), transparent);
+    animation: lightning 0.5s ease-in-out;
+    z-index: 1;
+}
+
+@keyframes lightning {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+/* Blue and Red Light Effects */
+.blue-light {
+    background: radial-gradient(circle, rgba(0, 0, 255, 0.7), transparent);
+}
+
+.red-light {
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.7), transparent);
+}
+
+/* Different fonts for X and O */
+.x-font {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #3498db; /* Blue color for X */
+}
+
+.o-font {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    color: #e74c3c; /* Red color for O */
+}
+
+/* Highlighting the winning line */
+.winning-line {
+    position: absolute;
+    background-color: white;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Different line styles for horizontal, vertical, and diagonal */
+.horizontal {
+    height: 4px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+}
+
+.vertical {
+    width: 4px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+}
+
+.diagonal1 {
+    width: 140%;
+    height: 4px;
+    top: 5%;
+    left: -20%;
+    transform: rotate(45deg);
+}
+
+.diagonal2 {
+    width: 140%;
+    height: 4px;
+    top: 5%;
+    left: -20%;
+    transform: rotate(-45deg);
+}
