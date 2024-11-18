@@ -33,7 +33,7 @@ body {
 }
 
 button {
-    padding: 12px 24px;
+    padding: 2px 4px;
     background: linear-gradient(145deg, #1c1c1c, #333333);
     color: white;
     border: none;
