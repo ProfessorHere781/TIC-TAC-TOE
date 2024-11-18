@@ -1,123 +1,98 @@
+// Selecting DOM elements
+const startBtn = document.getElementById("start-btn");
+const difficultySelect = document.getElementById("difficulty");
+const boxes = document.querySelectorAll(".box");
+const levelDisplay = document.getElementById("level");
+const creditsBtn = document.getElementById("credits-btn");
+const creditsContent = document.getElementById("credits-content");
+const statusDisplay = document.getElementById("status");
+const aiMessage = document.getElementById("ai-message");
 
-const board = document.getElementById('board');
-const cells = Array.from(document.getElementsByClassName('cell'));
-const message = document.getElementById('message');
-const resetButton = document.getElementById('reset');
+// Game state variables
+let sequence = [];
+let playerSequence = [];
+let level = 1;
+let playerTurn = false;
 
-let currentPlayer = 'X';
-let gameBoard = ['', '', '', '', '', '', '', '', ''];
-let isGameActive = true;
-let winningLine = null; // To store the reference to the winning line
+// Event listeners
+creditsBtn.addEventListener("click", toggleCredits);
+startBtn.addEventListener("click", startGame);
+boxes.forEach((box, index) => {
+    box.addEventListener("click", () => handlePlayerClick(index));
+});
 
-const winPatterns = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-];
-
-function checkWinner() {
-    for (let pattern of winPatterns) {
-        const [a, b, c] = pattern;
-        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-            isGameActive = false;
-            message.textContent = `${currentPlayer} wins!`;
-            highlightWinningLine(pattern); // Highlight the winning line
-            return;
-        }
-    }
-
-    if (!gameBoard.includes('')) {
-        isGameActive = false;
-        message.textContent = "It's a draw!";
-    }
+// Toggle Credits
+function toggleCredits() {
+    creditsContent.style.display = creditsContent.style.display === "block" ? "none" : "block";
 }
 
-function highlightWinningLine(pattern) {
-    // Remove any existing winning line if present
-    if (winningLine) {
-        winningLine.remove();
-    }
-
-    // Create the new winning line
-    winningLine = document.createElement('div');
-    winningLine.classList.add('winning-line');
-
-    // Determine the type of winning pattern (horizontal, vertical, or diagonal)
-    if (pattern[0] === pattern[1] && pattern[1] === pattern[2]) { // Horizontal
-        winningLine.classList.add('horizontal');
-        winningLine.style.top = `${Math.floor((pattern[0] / 3) * 100) + 50}%`;
-    } else if (pattern[0] === pattern[3] && pattern[1] === pattern[4]) { // Vertical
-        winningLine.classList.add('vertical');
-        winningLine.style.left = `${Math.floor((pattern[0] % 3) * 100) + 50}%`;
-    } else if (pattern[0] === pattern[4] && pattern[2] === pattern[4]) { // Diagonal
-        if (pattern[0] === 0 && pattern[2] === 8) { // Top-left to Bottom-right diagonal
-            winningLine.classList.add('diagonal1');
-        } else if (pattern[0] === 2 && pattern[2] === 6) { // Top-right to Bottom-left diagonal
-            winningLine.classList.add('diagonal2');
-        }
-    }
-
-    // Append the line to the board
-    board.appendChild(winningLine);
+// Start Game
+function startGame() {
+    sequence = [];
+    playerSequence = [];
+    level = 1;
+    playerTurn = false;
+    updateLevelDisplay();
+    statusDisplay.textContent = "AI's Turn";
+    aiMessage.textContent = "AI: Watch the sequence carefully!";
+    nextSequence();
 }
 
-function handleCellClick(event) {
-    const index = cells.indexOf(event.target);
+// Update Level Display
+function updateLevelDisplay() {
+    levelDisplay.textContent = `Level: ${level}`;
+}
 
-    if (gameBoard[index] || !isGameActive) return;
+// Next AI Sequence
+function nextSequence() {
+    const randomBox = Math.floor(Math.random() * 9);
+    sequence.push(randomBox);
+    playerSequence = [];
+    statusDisplay.textContent = "AI's Turn";
+    aiMessage.textContent = "AI: Watch the boxes light up!";
+    highlightSequence();
+}
 
-    gameBoard[index] = currentPlayer;
-    event.target.textContent = currentPlayer;
-    
-    // Apply specific font style for X and O
-    if (currentPlayer === 'X') {
-        event.target.classList.add('x-font'); // Apply X font
-    } else {
-        event.target.classList.add('o-font'); // Apply O font
-    }
+// Highlight AI Sequence
+function highlightSequence() {
+    let i = 0;
+    const interval = setInterval(() => {
+        highlightBox(sequence[i]);
+        i++;
+        if (i === sequence.length) {
+            clearInterval(interval);
+            playerTurn = true;
+            statusDisplay.textContent = "Player's Turn";
+            aiMessage.textContent = "AI: Click the boxes in the correct order!";
+        }
+    }, 800);
+}
 
-    // Apply lightning effect with player-specific color
-    const lightningEffect = document.createElement('div');
-    lightningEffect.classList.add('lightning');
-
-    if (currentPlayer === 'X') {
-        lightningEffect.classList.add('blue-light'); // Blue light for X
-    } else {
-        lightningEffect.classList.add('red-light');  // Red light for O
-    }
-
-    event.target.appendChild(lightningEffect);
-
+// Highlight Box
+function highlightBox(index) {
+    boxes[index].classList.add("highlight");
     setTimeout(() => {
-        event.target.removeChild(lightningEffect);
-    }, 500);
-
-    checkWinner();
-    
-    if (isGameActive) {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    }
+        boxes[index].classList.remove("highlight");
+    }, 400);
 }
 
-function resetGame() {
-    gameBoard = ['', '', '', '', '', '', '', '', ''];
-    cells.forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('x-font', 'o-font'); // Remove fonts when resetting
-    });
-    if (winningLine) {
-        winningLine.remove(); // Remove any existing winning line
-        winningLine = null;
+// Handle Player Click
+function handlePlayerClick(index) {
+    if (!playerTurn) return;
+    playerSequence.push(index);
+    if (playerSequence[playerSequence.length - 1] !== sequence[playerSequence.length - 1]) {
+        statusDisplay.textContent = "Game Over!";
+        playerTurn = false;
+        aiMessage.textContent = "AI: You made a mistake. Restarting game...";
+        setTimeout(startGame, 2000);
+        return;
     }
-    currentPlayer = 'X';
-    isGameActive = true;
-    message.textContent = '';
+    if (playerSequence.length === sequence.length) {
+        level++;
+        updateLevelDisplay();
+        playerTurn = false;
+        statusDisplay.textContent = "AI's Turn";
+        aiMessage.textContent = "AI: Great job! Next level coming up.";
+        setTimeout(nextSequence, 1000);
+    }
 }
-
-cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-resetButton.addEventListener('click', resetGame);
