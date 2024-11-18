@@ -3,26 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Simon Says Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Tic Tac Toe</h1>
-        <div class="board" id="board">
-            <div class="cell" id="cell0"></div>
-            <div class="cell" id="cell1"></div>
-            <div class="cell" id="cell2"></div>
-            <div class="cell" id="cell3"></div>
-            <div class="cell" id="cell4"></div>
-            <div class="cell" id="cell5"></div>
-            <div class="cell" id="cell6"></div>
-            <div class="cell" id="cell7"></div>
-            <div class="cell" id="cell8"></div>
+    <!-- Credits Section -->
+    <div class="credits">
+        <button id="credits-btn">Credits</button>
+        <div id="credits-content" class="credits-content">
+            <ul>
+                <li>Game Developer: Akhand</li>
+                <li>App Developer: Swarit</li>
+            </ul>
         </div>
-        <button id="reset">Reset Game</button>
-        <p id="message"></p>
     </div>
+
+    <!-- Main Game Section -->
+    <div class="game-container">
+        <h1 id="game-title">Simon Says</h1>
+
+        <!-- Difficulty Selection -->
+        <div class="difficulty">
+            <label for="difficulty">Choose Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="extreme">Extreme</option>
+            </select>
+        </div>
+
+        <!-- Game Grid -->
+        <div class="grid-container">
+            <div class="box" id="box1"></div>
+            <div class="box" id="box2"></div>
+            <div class="box" id="box3"></div>
+            <div class="box" id="box4"></div>
+            <div class="box" id="box5"></div>
+            <div class="box" id="box6"></div>
+            <div class="box" id="box7"></div>
+            <div class="box" id="box8"></div>
+            <div class="box" id="box9"></div>
+        </div>
+
+        <!-- AI/Player Turn Status -->
+        <div class="status">
+            <div id="level">Level: 1</div>
+            <div id="status">AI's Turn</div>
+        </div>
+
+        <!-- AI Message -->
+        <div id="ai-message">AI: Choose the difficulty and click on Start.</div>
+
+        <!-- Start Button -->
+        <button id="start-btn">Start</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
