@@ -7,14 +7,13 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(145deg, #000000, #121212);
+    background-color: #000000;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .credits {
@@ -27,109 +26,114 @@ body {
     display: none;
     background-color: rgba(0, 0, 0, 0.95);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    border: 2px solid black;
 }
 
 button {
-    padding: 2px 4px;
-    background: linear-gradient(145deg, #1c1c1c, #333333);
+    padding: 10px 20px;
+    background-color: #008CBA;
     color: white;
     border: none;
-    border-radius: 10px;
-    box-shadow: 5px 5px 10px #0e0e0e, -5px -5px 10px #404040;
-    font-size: 18px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background: linear-gradient(145deg, #333333, #1c1c1c);
-    box-shadow: inset 5px 5px 10px #0e0e0e, inset -5px -5px 10px #404040;
+    background-color: #006f8e;
 }
 
 #game-title {
     font-family: 'Algerian', sans-serif;
     color: white;
-    font-size: 48px;
+    font-size: 36px;
     margin-bottom: 20px;
-    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
     text-align: center;
 }
 
 .game-container {
     text-align: center;
-    background: linear-gradient(145deg, #1e1e1e, #2c2c2c);
+    background-color: #333;
     padding: 20px;
-    border-radius: 20px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5), -5px -5px 20px rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    grid-gap: 15px;
+    grid-gap: 10px;
     justify-content: center;
-    margin-bottom: 30px;
-    padding: 15px;
+    margin-bottom: 20px;
     border: 5px solid black;
-    border-radius: 20px;
-    box-shadow: inset 5px 5px 10px #0e0e0e, inset -5px -5px 10px #404040;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .box {
     width: 90px;
     height: 90px;
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.8;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
-.box:hover {
-    opacity: 1;
-    transform: translateY(-3px);
-}
-
-#box1 { background: linear-gradient(145deg, #ff4c4c, #ff2626); }
-#box2 { background: linear-gradient(145deg, #4c4cff, #2626ff); }
-#box3 { background: linear-gradient(145deg, #4cff4c, #26ff26); }
-#box4 { background: linear-gradient(145deg, #ffff4c, #ffff26); }
-#box5 { background: linear-gradient(145deg, #ff804c, #ff5826); }
-#box6 { background: linear-gradient(145deg, #804cff, #5826ff); }
-#box7 { background: linear-gradient(145deg, #ff4c94, #ff2680); }
-#box8 { background: linear-gradient(145deg, #4cffff, #26ffff); }
-#box9 { background: linear-gradient(145deg, #4cff94, #26ff80); }
+#box1 { background-color: red; }
+#box2 { background-color: blue; }
+#box3 { background-color: green; }
+#box4 { background-color: yellow; }
+#box5 { background-color: orange; }
+#box6 { background-color: purple; }
+#box7 { background-color: pink; }
+#box8 { background-color: cyan; }
+#box9 { background-color: lime; }
 
 .box.highlight {
-    box-shadow: 0 0 20px white;
+    opacity: 1;
+    box-shadow: 0 0 15px white;
+}
+
+.box.clicked {
+    border: 3px solid white;
+    box-shadow: 0 0 10px white;
 }
 
 .difficulty {
     margin: 20px 0;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .status {
     margin-top: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size: 20px;
     color: white;
     font-weight: bold;
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 #ai-message {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    color: white; /* AI text is now white */
     font-size: 18px;
-    font-weight: bold;
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+#level {
+    margin-bottom: 5px;
 }
 
 #start-btn {
     margin-top: 10px;
     font-size: 18px;
-    padding: 12px 30px;
+}
+
+#credits-btn {
+    background-color: #4CAF50;
+}
+
+#credits-btn:hover {
+    background-color: #45a049;
 }
